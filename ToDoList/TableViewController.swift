@@ -31,6 +31,23 @@ class TableViewController: UITableViewController {
         present(alertController, animated: true, completion: nil)
     }
     
+    @IBAction func clearAction(_ sender: UIBarButtonItem) {
+        let context = getContext()
+        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+        if let objects = try? context.fetch(fetchRequest) {
+            for object in objects {
+                context.delete(object)
+            }
+        }
+        do {
+            try context.save()
+            tasks = []
+            self.tableView.reloadData()
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+    }
+    
     private func saveTask(withTitle title: String) {
         let context = getContext()
         
