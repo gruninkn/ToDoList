@@ -12,6 +12,22 @@ class TableViewController: UITableViewController {
     var tasks: [String] = []
     
     @IBAction func saveTask(_ sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title: "New Task", message: "Please add new task", preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: "Save", style: .default) { action in
+            let tf = alertController.textFields?.first
+            if let newTask = tf?.text {
+                self.tasks.insert(newTask, at: 0)
+                self.tableView.reloadData()
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { _ in }
+        
+        alertController.addTextField()
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
