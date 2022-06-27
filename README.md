@@ -1,2 +1,2 @@
 # ToDoList
-Example app
+Pet project to use CoreData
